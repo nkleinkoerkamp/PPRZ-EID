@@ -8,6 +8,18 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:text="Settings"
+        android:id="@+id/Button_Settings"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000000"
+        android:onClick="display_settings"
+        android:hint='"this is hint"'
+        android:textSize="14dp"
+        android:textStyle="normal" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:text="Re-Connect to Server"
         android:id="@+id/Button_ConnectToServer"
         android:layout_gravity="center_horizontal"

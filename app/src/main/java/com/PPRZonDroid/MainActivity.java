@@ -86,6 +86,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   //TODO ! FLAG MUST BE 'FALSE' FOR PLAY STORE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   boolean DEBUG=false;
 
+    //Immersive Sticky UI
     private View mContentView;
 
     @Override
@@ -1234,6 +1235,14 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 
 
     }
+
+    public void display_settings(View mView) {
+
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+
+    }
+
 
   //Function called when toggleButton_ConnectToServer (in left fragment) is pressed
   public void connect_to_server(View mView) {
