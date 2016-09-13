@@ -143,7 +143,9 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   //Ac Names
   ArrayList<Model> AcList = new ArrayList<Model>();
   AcListAdapter mAcListAdapter;
+    TimelineAdapter mTimelineAdapter;
   ListView AcListView;
+    ListView TimelineView;
   boolean TcpSettingsChanged;
   boolean UdpSettingsChanged;
   int DialogAcId;
@@ -339,8 +341,13 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
     //Setup left drawer
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+      generateDataAc();
+
     //Setup AC List
     setup_ac_list();
+
+      //Setup Timeline
+      setup_timeline();
 
 
     //Setup Block list
@@ -444,7 +451,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   }
 
   private void setup_ac_list() {
-      mAcListAdapter = new AcListAdapter(this, generateDataAc());
+      mAcListAdapter = new AcListAdapter(this, AcList);
 
       // if extending Activity 2. Get ListView from activity_main.xml
       AcListView = (ListView) findViewById(R.id.AcList);
@@ -474,6 +481,32 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         });
 
   }
+
+    private void setup_timeline() {
+        mTimelineAdapter = new TimelineAdapter(this, AcList);
+
+        // if extending Activity 2. Get ListView from activity_main.xml
+        TimelineView = (ListView) findViewById(R.id.Timeline);
+
+        // 3. setListAdapter
+        TimelineView.setAdapter(mTimelineAdapter);
+        //Create onclick listener
+        TimelineView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position >= 1) {
+                    BL_CountDown.cancel();
+                    BL_CountDownTimerValue=BL_CountDownTimerDuration;
+                    mBlListAdapter.ClickedInd=-1;
+                    mBlListAdapter.notifyDataSetChanged();
+
+                    view.setSelected(true);
+                    set_selected_ac(position - 1,true);
+                }
+
+            }
+        });
+
+    }
 
    /**
    * Set Selected Block
@@ -540,7 +573,9 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
     }
 
       mAcListAdapter.SelectedInd = AcInd;
+      mTimelineAdapter.SelectedInd = AcInd;
       mAcListAdapter.notifyDataSetChanged();
+      mTimelineAdapter.notifyDataSetChanged();
       refresh_ac_list();
 
   }
@@ -1606,6 +1641,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
               //new ac addedBattery value for an ac is changed
               refresh_ac_list();
               mAcListAdapter.notifyDataSetChanged();
+              mTimelineAdapter.notifyDataSetChanged();
               AC_DATA.BatteryChanged = false;
           }
 
