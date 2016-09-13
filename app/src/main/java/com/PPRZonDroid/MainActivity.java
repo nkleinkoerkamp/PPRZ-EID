@@ -1094,7 +1094,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_main_eid);
     mContentView = findViewById(R.id.drawer_layout);
 
 
