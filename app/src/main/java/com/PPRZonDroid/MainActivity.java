@@ -46,7 +46,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -56,13 +58,16 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -348,12 +353,22 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 
       //Setup Timeline
       setup_timeline();
-
+      ExpandableHeightListView expandableListView = (ExpandableHeightListView) findViewById(R.id.Timeline);
+      expandableListView.setAdapter(mTimelineAdapter);
+      expandableListView.setExpanded(true);
 
     //Setup Block list
     setup_block_list();
 
-
+////Setup timeline wrapper
+//      ListView TimelineWrapper = (ListView) findViewById(R.id.Timeline);
+//      TimelineWrapper.setOnTouchListener(new View.OnTouchListener() {
+//          @Override
+//          public boolean onTouch(View view, MotionEvent motionEvent) {
+//              view.getParent().requestDisallowInterceptTouchEvent(true);
+//              return false;
+//          }
+//      });
 
     //Set map zoom level variable (if any);
     if (AppSettings.contains("MapZoomLevel")) {
@@ -493,15 +508,13 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         //Create onclick listener
         TimelineView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position >= 1) {
                     BL_CountDown.cancel();
                     BL_CountDownTimerValue=BL_CountDownTimerDuration;
                     mBlListAdapter.ClickedInd=-1;
                     mBlListAdapter.notifyDataSetChanged();
 
                     view.setSelected(true);
-                    set_selected_ac(position - 1,true);
-                }
+                    set_selected_ac(position,true);
 
             }
         });
