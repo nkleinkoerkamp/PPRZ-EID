@@ -34,6 +34,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -63,11 +64,12 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
@@ -81,7 +83,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
@@ -148,9 +152,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   //Ac Names
   ArrayList<Model> AcList = new ArrayList<Model>();
   AcListAdapter mAcListAdapter;
-    TimelineAdapter mTimelineAdapter;
   ListView AcListView;
-    ListView TimelineView;
   boolean TcpSettingsChanged;
   boolean UdpSettingsChanged;
   int DialogAcId;
@@ -183,6 +185,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   private int BL_CountDownTimerValue;
   private int JumpToBlock;
   private int BL_CountDownTimerDuration;
+    List<TextView> acNameViewList = new ArrayList<TextView>();
 
   private ArrayList<Model> generateDataAc() {
     AcList = new ArrayList<Model>();
@@ -346,16 +349,11 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
     //Setup left drawer
     mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-      generateDataAc();
-
     //Setup AC List
     setup_ac_list();
 
-      //Setup Timeline
-      setup_timeline();
-      ExpandableHeightListView expandableListView = (ExpandableHeightListView) findViewById(R.id.Timeline);
-      expandableListView.setAdapter(mTimelineAdapter);
-      expandableListView.setExpanded(true);
+      //Setup timeline
+      //setup_timeline();
 
     //Setup Block list
     setup_block_list();
@@ -466,7 +464,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   }
 
   private void setup_ac_list() {
-      mAcListAdapter = new AcListAdapter(this, AcList);
+      mAcListAdapter = new AcListAdapter(this, generateDataAc());
 
       // if extending Activity 2. Get ListView from activity_main.xml
       AcListView = (ListView) findViewById(R.id.AcList);
@@ -497,29 +495,9 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 
   }
 
-    private void setup_timeline() {
-        mTimelineAdapter = new TimelineAdapter(this, AcList);
-
-        // if extending Activity 2. Get ListView from activity_main.xml
-        TimelineView = (ListView) findViewById(R.id.Timeline);
-
-        // 3. setListAdapter
-        TimelineView.setAdapter(mTimelineAdapter);
-        //Create onclick listener
-        TimelineView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    BL_CountDown.cancel();
-                    BL_CountDownTimerValue=BL_CountDownTimerDuration;
-                    mBlListAdapter.ClickedInd=-1;
-                    mBlListAdapter.notifyDataSetChanged();
-
-                    view.setSelected(true);
-                    set_selected_ac(position,true);
-
-            }
-        });
-
-    }
+    //private void setup_timeline() {
+//
+    //}
 
    /**
    * Set Selected Block
@@ -586,9 +564,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
     }
 
       mAcListAdapter.SelectedInd = AcInd;
-      mTimelineAdapter.SelectedInd = AcInd;
       mAcListAdapter.notifyDataSetChanged();
-      mTimelineAdapter.notifyDataSetChanged();
       refresh_ac_list();
 
   }
@@ -780,6 +756,44 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
     }
   }
 
+    private void add_ac_timeline(int ac_index) {
+        // get a reference for the TableLayout
+        TableLayout table = (TableLayout) findViewById(R.id.timeline);
+
+        // create a new TableRow
+        TableRow row = new TableRow(this);
+
+        // create a new TextView
+        TextView acName = (TextView)getLayoutInflater().inflate(R.layout.timeline_ac, null);
+        acNameViewList.add(acName);
+
+        if (acNameViewList.size() == 1) {
+            acNameViewList.get(0).setBackground(getResources().getDrawable(R.drawable.border_selected));
+            set_selected_ac(0,true);
+        }
+
+        acName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int i;
+                for (i=0; i < acNameViewList.size(); i++) {
+                    acNameViewList.get(i).setBackground(getResources().getDrawable(R.drawable.border));
+                }
+                view.setBackground(getResources().getDrawable(R.drawable.border_selected));
+                set_selected_ac(acNameViewList.indexOf(view),true);
+            }
+        });
+
+        // set the text to "text xx"
+        acName.setText(AC_DATA.AircraftData[ac_index].AC_Name);
+
+        // add the TextView and the CheckBox to the new TableRow
+        row.addView(acName);
+
+        // add the TableRow to the TableLayout
+        table.addView(row,new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+    }
+
   private void refresh_ac_list() {
 
 
@@ -795,6 +809,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         if (AC_DATA.AircraftData[i].AcReady) {
           AcList.add(new Model(AC_DATA.AircraftData[i].AC_Logo, AC_DATA.AircraftData[i].AC_Name, AC_DATA.AircraftData[i].Battery));
           AC_DATA.AircraftData[i].AC_Enabled = true;
+            add_ac_timeline(i);
         } else {
           //AC data is not ready yet this should be
           return;
@@ -1654,7 +1669,6 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
               //new ac addedBattery value for an ac is changed
               refresh_ac_list();
               mAcListAdapter.notifyDataSetChanged();
-              mTimelineAdapter.notifyDataSetChanged();
               AC_DATA.BatteryChanged = false;
           }
 
