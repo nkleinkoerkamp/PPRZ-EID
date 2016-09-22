@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
     android:text="AC 1"
     android:padding="10dp"
-    android:background="@drawable/border"
+    android:background="@drawable/border_active"
     android:textColor="#FFFFFF"
     />

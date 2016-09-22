@@ -82,6 +82,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -186,6 +188,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   private int JumpToBlock;
   private int BL_CountDownTimerDuration;
     List<TextView> acNameViewList = new ArrayList<TextView>();
+   List<List<TextView>> acNameElementViewList = new ArrayList<List<TextView>>();
 
   private ArrayList<Model> generateDataAc() {
     AcList = new ArrayList<Model>();
@@ -767,17 +770,19 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         TextView acName = (TextView)getLayoutInflater().inflate(R.layout.timeline_ac, null);
         acNameViewList.add(acName);
 
-        if (acNameViewList.size() == 1) {
-            acNameViewList.get(0).setBackground(getResources().getDrawable(R.drawable.border_selected));
-            set_selected_ac(0,true);
-        }
-
         acName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int i;
                 for (i=0; i < acNameViewList.size(); i++) {
-                    acNameViewList.get(i).setBackground(getResources().getDrawable(R.drawable.border));
+                    acNameViewList.get(i).setBackground(getResources().getDrawable(R.drawable.border_active));
+                    for (int k = 0; k < AC_DATA.AircraftData[i].BlockCount; k++) {
+                        if (acNameViewList.indexOf(view) == i) {
+                            acNameElementViewList.get(i).get(k).setBackground(getResources().getDrawable(R.drawable.border_active));
+                        } else {
+                            acNameElementViewList.get(i).get(k).setBackground(getResources().getDrawable(R.drawable.border));
+                        }
+                    }
                 }
                 view.setBackground(getResources().getDrawable(R.drawable.border_selected));
                 set_selected_ac(acNameViewList.indexOf(view),true);
@@ -789,6 +794,35 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 
         // add the TextView and the CheckBox to the new TableRow
         row.addView(acName);
+
+        List<TextView> elementViewList = new ArrayList<TextView>();
+
+        int j;
+        for (j=0; j < AC_DATA.AircraftData[ac_index].BlockCount; j++) {
+            TextView element = (TextView)getLayoutInflater().inflate(R.layout.timeline_element, null);
+            element.setText(AC_DATA.AircraftData[ac_index].AC_Blocks[j].BlName);
+            elementViewList.add(element);
+            element.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    for (int k = 0; k < acNameElementViewList.size(); k++) {
+                        if (acNameElementViewList.get(k).indexOf(view) != -1 && k == AC_DATA.SelAcInd) {
+                            view.setBackground(getResources().getDrawable(R.drawable.border_selected));
+                        }
+                    }
+                }
+            });
+            row.addView(element);
+        }
+        acNameElementViewList.add(elementViewList);
+
+        if (acNameViewList.size() == 1) {
+            acNameViewList.get(0).setBackground(getResources().getDrawable(R.drawable.border_selected));
+            set_selected_ac(0,true);
+            for (int k = 0; k < AC_DATA.AircraftData[0].BlockCount; k++) {
+                acNameElementViewList.get(0).get(k).setBackground(getResources().getDrawable(R.drawable.border_active));
+            }
+        }
 
         // add the TableRow to the TableLayout
         table.addView(row,new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
