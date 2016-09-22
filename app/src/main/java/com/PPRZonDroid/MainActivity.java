@@ -778,7 +778,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
                     acNameViewList.get(i).setBackground(getResources().getDrawable(R.drawable.border_active));
                     for (int k = 0; k < AC_DATA.AircraftData[i].BlockCount; k++) {
                         if (acNameViewList.indexOf(view) == i) {
-                            acNameElementViewList.get(i).get(k).setBackground(getResources().getDrawable(R.drawable.border_active));
+                            acNameElementViewList.get(i).get(k).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
                         } else {
                             acNameElementViewList.get(i).get(k).setBackground(getResources().getDrawable(R.drawable.border));
                         }
@@ -807,7 +807,10 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
                 public void onClick(View view) {
                     for (int k = 0; k < acNameElementViewList.size(); k++) {
                         if (acNameElementViewList.get(k).indexOf(view) != -1 && k == AC_DATA.SelAcInd) {
-                            view.setBackground(getResources().getDrawable(R.drawable.border_selected));
+                            for (int l = 0; l < acNameElementViewList.get(k).size(); l++) {
+                                acNameElementViewList.get(k).get(l).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
+                            }
+                            view.setBackground(getResources().getDrawable(R.drawable.border_selected_egde));
                         }
                     }
                 }
@@ -820,7 +823,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
             acNameViewList.get(0).setBackground(getResources().getDrawable(R.drawable.border_selected));
             set_selected_ac(0,true);
             for (int k = 0; k < AC_DATA.AircraftData[0].BlockCount; k++) {
-                acNameElementViewList.get(0).get(k).setBackground(getResources().getDrawable(R.drawable.border_active));
+                acNameElementViewList.get(0).get(k).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
             }
         }
 
