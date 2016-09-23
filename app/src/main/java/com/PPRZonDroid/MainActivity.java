@@ -61,6 +61,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
@@ -776,11 +777,11 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
                 int i;
                 for (i=0; i < acNameViewList.size(); i++) {
                     acNameViewList.get(i).setBackground(getResources().getDrawable(R.drawable.border_active));
-                    for (int k = 0; k < AC_DATA.AircraftData[i].BlockCount; k++) {
+                    for (int k = 1; k < AC_DATA.AircraftData[i].NumbOfWps-1; k++) {
                         if (acNameViewList.indexOf(view) == i) {
-                            acNameElementViewList.get(i).get(k).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
+                            acNameElementViewList.get(i).get(k-1).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
                         } else {
-                            acNameElementViewList.get(i).get(k).setBackground(getResources().getDrawable(R.drawable.border));
+                            acNameElementViewList.get(i).get(k-1).setBackground(getResources().getDrawable(R.drawable.border));
                         }
                     }
                 }
@@ -796,11 +797,10 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         row.addView(acName);
 
         List<TextView> elementViewList = new ArrayList<TextView>();
-
         int j;
-        for (j=0; j < AC_DATA.AircraftData[ac_index].BlockCount; j++) {
+        for (j=1; j < AC_DATA.AircraftData[ac_index].NumbOfWps-1; j++) {
             TextView element = (TextView)getLayoutInflater().inflate(R.layout.timeline_element, null);
-            element.setText(AC_DATA.AircraftData[ac_index].AC_Blocks[j].BlName);
+            element.setText(AC_DATA.AircraftData[ac_index].AC_Markers[j].WpName);
             elementViewList.add(element);
             element.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -822,8 +822,8 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         if (acNameViewList.size() == 1) {
             acNameViewList.get(0).setBackground(getResources().getDrawable(R.drawable.border_selected));
             set_selected_ac(0,true);
-            for (int k = 0; k < AC_DATA.AircraftData[0].BlockCount; k++) {
-                acNameElementViewList.get(0).get(k).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
+            for (int k = 1; k < AC_DATA.AircraftData[0].NumbOfWps-1; k++) {
+                acNameElementViewList.get(0).get(k-1).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
             }
         }
 

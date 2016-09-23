@@ -203,7 +203,8 @@ public class uiGraphics {
   public Bitmap create_ac_icon(String AcType, String AcColorStrX, float GraphicsScaleFactor, boolean AcSelected) {
 
     //validate color string
-    int AcColor = get_color(AcColorStrX);
+    //int AcColor = get_color(AcColorStrX);
+    int AcColor = get_color("#008B00");
 
 
     if (AcType.equals("rotorcraft")) {
@@ -371,7 +372,7 @@ public class uiGraphics {
     Canvas canvas = new Canvas(bmp);
 
     Paint p = new Paint();
-    p.setColor(get_color(AcColorX));
+    p.setColor(get_color("#CD00CD")); //p.setColor(get_color(AcColorX));
     p.setStyle(Paint.Style.FILL);
     p.setAntiAlias(true);
 
