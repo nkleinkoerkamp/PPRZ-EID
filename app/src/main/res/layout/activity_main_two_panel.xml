@@ -319,7 +319,7 @@
                 android:layout_gravity="right|top"
                 android:layout_weight="0">
 
-                <fragment android:name="com.PPRZonDroid.Right_Menu_Class"
+                <fragment android:name="com.PPRZ_EID.Right_Menu_Class"
                     android:id="@+id/right_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -333,7 +333,7 @@
 
 
     <!-- The navigation drawer -->
-    <fragment android:name="com.PPRZonDroid.Left_Menu_Class"
+    <fragment android:name="com.PPRZ_EID.Left_Menu_Class"
         android:id="@+id/left_fragment"
         android:layout_width="@dimen/left_menu_width"
         android:layout_height="match_parent"

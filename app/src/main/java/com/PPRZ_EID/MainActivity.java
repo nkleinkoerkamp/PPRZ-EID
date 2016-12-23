@@ -24,7 +24,7 @@
  * This is the main Activity class
  */
 
-package com.PPRZonDroid;
+package com.PPRZ_EID;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,7 +34,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -47,7 +46,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -59,10 +57,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TableLayout;
@@ -83,10 +78,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -188,8 +180,8 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   private int BL_CountDownTimerValue;
   private int JumpToBlock;
   private int BL_CountDownTimerDuration;
-    List<TextView> acNameViewList = new ArrayList<TextView>();
-   List<List<TextView>> acNameElementViewList = new ArrayList<List<TextView>>();
+    //List<TextView> acNameViewList = new ArrayList<TextView>();
+  // List<List<TextView>> acNameElementViewList = new ArrayList<List<TextView>>();
 
   private ArrayList<Model> generateDataAc() {
     AcList = new ArrayList<Model>();
@@ -378,13 +370,13 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
     }
 
     //continue to bound UI items
-    MapAlt = (TextView) findViewById(R.id.Alt_On_Map);
-    MapThrottle = (TextView) findViewById(R.id.ThrottleText);
-    Pfd = (ImageView) findViewById(R.id.imageView_Pfd);
-    //mToolTip = (ImageView) findViewById(R.id.imageFeedBack );
+//    MapAlt = (TextView) findViewById(R.id.Alt_On_Map);
+//    MapThrottle = (TextView) findViewById(R.id.ThrottleText);
+//    Pfd = (ImageView) findViewById(R.id.imageView_Pfd);
+//    //mToolTip = (ImageView) findViewById(R.id.imageFeedBack );
 
     Button_ConnectToServer = (Button) findViewById(R.id.Button_ConnectToServer);
-    setup_map_ifneeded();
+    //setup_map_ifneeded();
 
 
     LockToAcSwitch = (ToggleButton) findViewById(R.id.toggleButton_TraceAircraft);
@@ -392,14 +384,14 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
     ChangeVisibleAcButon = (ToggleButton) findViewById(R.id.toggleButtonVisibleAc);
     ChangeVisibleAcButon.setSelected(false);
 
-    TextViewApMode = (TextView) findViewById(R.id.Ap_Status_On_Map);
-    TextViewGpsMode = (TextView) findViewById(R.id.Gps_Status_On_Map);
-    TextViewFlightTime = (TextView) findViewById(R.id.Flight_Time_On_Map);
-    TextViewBattery = (TextView) findViewById(R.id.Bat_Vol_On_Map);
-    TextViewStateFilterMode = (TextView) findViewById(R.id.State_Filter_On_Map);
-    TextViewSpeed = (TextView) findViewById(R.id.SpeedText);
-    TextViewAirspeed = (TextView) findViewById(R.id.AirSpeed_On_Map);
-    TextViewAirspeed.setVisibility(View.INVISIBLE);
+//    TextViewApMode = (TextView) findViewById(R.id.Ap_Status_On_Map);
+//    TextViewGpsMode = (TextView) findViewById(R.id.Gps_Status_On_Map);
+//    TextViewFlightTime = (TextView) findViewById(R.id.Flight_Time_On_Map);
+//    TextViewBattery = (TextView) findViewById(R.id.Bat_Vol_On_Map);
+//    TextViewStateFilterMode = (TextView) findViewById(R.id.State_Filter_On_Map);
+//    TextViewSpeed = (TextView) findViewById(R.id.SpeedText);
+//    TextViewAirspeed = (TextView) findViewById(R.id.AirSpeed_On_Map);
+//    TextViewAirspeed.setVisibility(View.INVISIBLE);
 
   }
 
@@ -560,7 +552,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AC_DATA.AircraftData[AC_DATA.SelAcInd].Position, MapZoomLevel), 1500, null);
           if (centerAC)
           {
-              center_aircraft();
+              //center_aircraft();
           }
 
       }
@@ -609,86 +601,86 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
   }
 
   //Bound map (if not bounded already)
-  private void setup_map_ifneeded() {
-    // Do a null check to confirm that we have not already instantiated the map.
-    if (mMap == null) {
-      // Try to obtain the map from the SupportMapFragment.
-      mMap = ((MapFragment) getFragmentManager()
-              .findFragmentById(R.id.map)).getMap();
-      // Check if we were successful in obtaining the map.
-      if (mMap != null) {
-        setup_map();
-      }
-    }
-  }
+//  private void setup_map_ifneeded() {
+//    // Do a null check to confirm that we have not already instantiated the map.
+//    if (mMap == null) {
+//      // Try to obtain the map from the SupportMapFragment.
+//      mMap = ((MapFragment) getFragmentManager()
+//              .findFragmentById(R.id.map)).getMap();
+//      // Check if we were successful in obtaining the map.
+//      if (mMap != null) {
+//        setup_map();
+//      }
+//    }
+//  }
 
   //Setup map & zoom listener
-  private void setup_map() {
-
-    GoogleMapOptions mMapOptions = new GoogleMapOptions();
-
-    mMap.getUiSettings().setTiltGesturesEnabled(false);
-    //Read device settings for Gps usage.
-    mMap.setMyLocationEnabled(AppSettings.getBoolean("use_gps_checkbox", true));
-
-    //Set map type
-    mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-
-    //Set zoom level
-    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(AC_Pos, MapZoomLevel));
-
-    //Setup markers drag listeners
-    mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
-
-      @Override
-      public void onMarkerDragStart(Marker marker) {
-      }
-
-      @Override
-      public void onMarkerDragEnd(Marker marker) {
-        waypoint_changed(marker.getId(), marker.getPosition(), "Waypoint changed");
-      }
-
-      @Override
-      public void onMarkerDrag(Marker marker) {
-
-      }
-    });
-
-    //Set zoom listener to
-    mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
-
-      private float currentZoom = -1;
-
-      @Override
-      public void onCameraChange(CameraPosition position) {
-        if (position.zoom != currentZoom) {
-          //Get zoom level
-          currentZoom = position.zoom;
-
-          //if app didn't started don't save MapzoomLevel (needs to be checked)
-          if (AppStarted) {
-            MapZoomLevel = currentZoom;
-          }
-
-
-        }
-      }
-    });
-
-    //Setup onclick listener for marker infos
-    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-
-      public void onInfoWindowClick(Marker marker) {
-
-        if (!(is_ac_marker(marker.getId()))) {
-          waypoint_changed(marker.getId(), marker.getPosition(), "Modify Waypoint");
-          //Toast.makeText(getApplicationContext(), "marker " + marker.getId() , Toast.LENGTH_SHORT).show();
-        }
-      }
-    });
-
-  }
+//  private void setup_map() {
+//
+//    GoogleMapOptions mMapOptions = new GoogleMapOptions();
+//
+//    mMap.getUiSettings().setTiltGesturesEnabled(false);
+//    //Read device settings for Gps usage.
+//    mMap.setMyLocationEnabled(AppSettings.getBoolean("use_gps_checkbox", true));
+//
+//    //Set map type
+//    mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+//
+//    //Set zoom level
+//    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(AC_Pos, MapZoomLevel));
+//
+//    //Setup markers drag listeners
+//    mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+//
+//      @Override
+//      public void onMarkerDragStart(Marker marker) {
+//      }
+//
+//      @Override
+//      public void onMarkerDragEnd(Marker marker) {
+//        waypoint_changed(marker.getId(), marker.getPosition(), "Waypoint changed");
+//      }
+//
+//      @Override
+//      public void onMarkerDrag(Marker marker) {
+//
+//      }
+//    });
+//
+//    //Set zoom listener to
+//    mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+//
+//      private float currentZoom = -1;
+//
+//      @Override
+//      public void onCameraChange(CameraPosition position) {
+//        if (position.zoom != currentZoom) {
+//          //Get zoom level
+//          currentZoom = position.zoom;
+//
+//          //if app didn't started don't save MapzoomLevel (needs to be checked)
+//          if (AppStarted) {
+//            MapZoomLevel = currentZoom;
+//          }
+//
+//
+//        }
+//      }
+//    });
+//
+//    //Setup onclick listener for marker infos
+//    mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+//
+//      public void onInfoWindowClick(Marker marker) {
+//
+//        if (!(is_ac_marker(marker.getId()))) {
+//          waypoint_changed(marker.getId(), marker.getPosition(), "Modify Waypoint");
+//          //Toast.makeText(getApplicationContext(), "marker " + marker.getId() , Toast.LENGTH_SHORT).show();
+//        }
+//      }
+//    });
+//
+//  }
 
   /**
    * Check if everthink is ok with modified wp
@@ -760,76 +752,76 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
     }
   }
 
-    private void add_ac_timeline(int ac_index) {
-        // get a reference for the TableLayout
-        TableLayout table = (TableLayout) findViewById(R.id.timeline);
-
-        // create a new TableRow
-        TableRow row = new TableRow(this);
-
-        // create a new TextView
-        TextView acName = (TextView)getLayoutInflater().inflate(R.layout.timeline_ac, null);
-        acNameViewList.add(acName);
-
-        acName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int i;
-                for (i=0; i < acNameViewList.size(); i++) {
-                    acNameViewList.get(i).setBackground(getResources().getDrawable(R.drawable.border_active));
-                    for (int k = 1; k < AC_DATA.AircraftData[i].NumbOfWps-1; k++) {
-                        if (acNameViewList.indexOf(view) == i) {
-                            acNameElementViewList.get(i).get(k-1).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
-                        } else {
-                            acNameElementViewList.get(i).get(k-1).setBackground(getResources().getDrawable(R.drawable.border));
-                        }
-                    }
-                }
-                view.setBackground(getResources().getDrawable(R.drawable.border_selected));
-                set_selected_ac(acNameViewList.indexOf(view),true);
-            }
-        });
-
-        // set the text to "text xx"
-        acName.setText(AC_DATA.AircraftData[ac_index].AC_Name);
-
-        // add the TextView and the CheckBox to the new TableRow
-        row.addView(acName);
-
-        List<TextView> elementViewList = new ArrayList<TextView>();
-        int j;
-        for (j=1; j < AC_DATA.AircraftData[ac_index].NumbOfWps-1; j++) {
-            TextView element = (TextView)getLayoutInflater().inflate(R.layout.timeline_element, null);
-            element.setText(AC_DATA.AircraftData[ac_index].AC_Markers[j].WpName);
-            elementViewList.add(element);
-            element.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    for (int k = 0; k < acNameElementViewList.size(); k++) {
-                        if (acNameElementViewList.get(k).indexOf(view) != -1 && k == AC_DATA.SelAcInd) {
-                            for (int l = 0; l < acNameElementViewList.get(k).size(); l++) {
-                                acNameElementViewList.get(k).get(l).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
-                            }
-                            view.setBackground(getResources().getDrawable(R.drawable.border_selected_egde));
-                        }
-                    }
-                }
-            });
-            row.addView(element);
-        }
-        acNameElementViewList.add(elementViewList);
-
-        if (acNameViewList.size() == 1) {
-            acNameViewList.get(0).setBackground(getResources().getDrawable(R.drawable.border_selected));
-            set_selected_ac(0,true);
-            for (int k = 1; k < AC_DATA.AircraftData[0].NumbOfWps-1; k++) {
-                acNameElementViewList.get(0).get(k-1).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
-            }
-        }
-
-        // add the TableRow to the TableLayout
-        table.addView(row,new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-    }
+//    private void add_ac_timeline(int ac_index) {
+//        // get a reference for the TableLayout
+//        TableLayout table = (TableLayout) findViewById(R.id.timeline);
+//
+//        // create a new TableRow
+//        TableRow row = new TableRow(this);
+//
+//        // create a new TextView
+//        TextView acName = (TextView)getLayoutInflater().inflate(R.layout.timeline_ac, null);
+//        acNameViewList.add(acName);
+//
+//        acName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int i;
+//                for (i=0; i < acNameViewList.size(); i++) {
+//                    acNameViewList.get(i).setBackground(getResources().getDrawable(R.drawable.border_active));
+//                    for (int k = 1; k < AC_DATA.AircraftData[i].NumbOfWps-1; k++) {
+//                        if (acNameViewList.indexOf(view) == i) {
+//                            acNameElementViewList.get(i).get(k-1).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
+//                        } else {
+//                            acNameElementViewList.get(i).get(k-1).setBackground(getResources().getDrawable(R.drawable.border));
+//                        }
+//                    }
+//                }
+//                view.setBackground(getResources().getDrawable(R.drawable.border_selected));
+//                set_selected_ac(acNameViewList.indexOf(view),true);
+//            }
+//        });
+//
+//        // set the text to "text xx"
+//        acName.setText(AC_DATA.AircraftData[ac_index].AC_Name);
+//
+//        // add the TextView and the CheckBox to the new TableRow
+//        row.addView(acName);
+//
+//        List<TextView> elementViewList = new ArrayList<TextView>();
+//        int j;
+//        for (j=1; j < AC_DATA.AircraftData[ac_index].NumbOfWps-1; j++) {
+//            TextView element = (TextView)getLayoutInflater().inflate(R.layout.timeline_element, null);
+//            element.setText(AC_DATA.AircraftData[ac_index].AC_Markers[j].WpName);
+//            elementViewList.add(element);
+//            element.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    for (int k = 0; k < acNameElementViewList.size(); k++) {
+//                        if (acNameElementViewList.get(k).indexOf(view) != -1 && k == AC_DATA.SelAcInd) {
+//                            for (int l = 0; l < acNameElementViewList.get(k).size(); l++) {
+//                                acNameElementViewList.get(k).get(l).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
+//                            }
+//                            view.setBackground(getResources().getDrawable(R.drawable.border_selected_egde));
+//                        }
+//                    }
+//                }
+//            });
+//            row.addView(element);
+//        }
+//        acNameElementViewList.add(elementViewList);
+//
+//        if (acNameViewList.size() == 1) {
+//            acNameViewList.get(0).setBackground(getResources().getDrawable(R.drawable.border_selected));
+//            set_selected_ac(0,true);
+//            for (int k = 1; k < AC_DATA.AircraftData[0].NumbOfWps-1; k++) {
+//                acNameElementViewList.get(0).get(k-1).setBackground(getResources().getDrawable(R.drawable.border_active_edge));
+//            }
+//        }
+//
+//        // add the TableRow to the TableLayout
+//        table.addView(row,new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//    }
 
   private void refresh_ac_list() {
 
@@ -846,7 +838,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
         if (AC_DATA.AircraftData[i].AcReady) {
           AcList.add(new Model(AC_DATA.AircraftData[i].AC_Logo, AC_DATA.AircraftData[i].AC_Name, AC_DATA.AircraftData[i].Battery));
           AC_DATA.AircraftData[i].AC_Enabled = true;
-            add_ac_timeline(i);
+            //add_ac_timeline(i);
         } else {
           //AC data is not ready yet this should be
           return;
@@ -856,178 +848,178 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 
   }
 
-  private void refresh_map_lines(int AcInd) {
-
-    //Create the polyline object of ac if it hasn't been created before
-    if (null == AC_DATA.AircraftData[AcInd].Ac_PolLine) {
-          PolylineOptions mPolylineOptions = new PolylineOptions()
-                  .addAll(AC_DATA.AircraftData[AcInd].AC_Path)
-                  .width(2 * AC_DATA.GraphicsScaleFactor)
-                  .color(AC_DATA.muiGraphics.get_color(AC_DATA.AircraftData[AcInd].AC_Color))
-                  .geodesic(false);
-          AC_DATA.AircraftData[AcInd].Ac_PolLine = mMap.addPolyline(mPolylineOptions);
-     }
-
-    //Refresh polyline with new values
-    AC_DATA.AircraftData[AcInd].Ac_PolLine.setPoints(AC_DATA.AircraftData[AcInd].AC_Path);
-
-    //Clean the flags
-    if (AcInd == AC_DATA.SelAcInd || ShowOnlySelected == false) {
-      AC_DATA.AircraftData[AcInd].Ac_PolLine.setVisible(true);
-    } else {
-      AC_DATA.AircraftData[AcInd].Ac_PolLine.setVisible(false);
-    }
-
-  }
+//  private void refresh_map_lines(int AcInd) {
+//
+//    //Create the polyline object of ac if it hasn't been created before
+//    if (null == AC_DATA.AircraftData[AcInd].Ac_PolLine) {
+//          PolylineOptions mPolylineOptions = new PolylineOptions()
+//                  .addAll(AC_DATA.AircraftData[AcInd].AC_Path)
+//                  .width(2 * AC_DATA.GraphicsScaleFactor)
+//                  .color(AC_DATA.muiGraphics.get_color(AC_DATA.AircraftData[AcInd].AC_Color))
+//                  .geodesic(false);
+//          AC_DATA.AircraftData[AcInd].Ac_PolLine = mMap.addPolyline(mPolylineOptions);
+//     }
+//
+//    //Refresh polyline with new values
+//    AC_DATA.AircraftData[AcInd].Ac_PolLine.setPoints(AC_DATA.AircraftData[AcInd].AC_Path);
+//
+//    //Clean the flags
+//    if (AcInd == AC_DATA.SelAcInd || ShowOnlySelected == false) {
+//      AC_DATA.AircraftData[AcInd].Ac_PolLine.setVisible(true);
+//    } else {
+//      AC_DATA.AircraftData[AcInd].Ac_PolLine.setVisible(false);
+//    }
+//
+//  }
 
   /**
    * Amm markers of given AcIndex to map. AcIndex is not Ac ID!!!
    *
    * @param AcIndex
    */
-  private void add_markers_2_map(int AcIndex) {
-
-
-    if (AC_DATA.AircraftData[AcIndex].isVisible && AC_DATA.AircraftData[AcIndex].AC_Enabled) {
-      AC_DATA.AircraftData[AcIndex].AC_Marker = mMap.addMarker(new MarkerOptions()
-                      .position(AC_DATA.AircraftData[AcIndex].Position)
-                      .anchor((float) 0.5, (float) 0.5)
-                      .flat(true).rotation(Float.parseFloat(AC_DATA.AircraftData[AcIndex].Heading))
-                      .title(AC_DATA.AircraftData[AcIndex].AC_Name)
-                      .draggable(true)
-                      .icon(BitmapDescriptorFactory.fromBitmap(AC_DATA.AircraftData[AcIndex].AC_Logo))
-      );
-
-      AC_DATA.AircraftData[AcIndex].AC_Carrot_Marker = mMap.addMarker(new MarkerOptions()
-                      .position(AC_DATA.AircraftData[AcIndex].AC_Carrot_Position)
-                      .anchor((float) 0.5, (float) 0.5)
-                      .draggable(true)
-                      .icon(BitmapDescriptorFactory.fromBitmap(AC_DATA.AircraftData[AcIndex].AC_Carrot_Logo))
-      );
-    }
-  }
+//  private void add_markers_2_map(int AcIndex) {
+//
+//
+//    if (AC_DATA.AircraftData[AcIndex].isVisible && AC_DATA.AircraftData[AcIndex].AC_Enabled) {
+//      AC_DATA.AircraftData[AcIndex].AC_Marker = mMap.addMarker(new MarkerOptions()
+//                      .position(AC_DATA.AircraftData[AcIndex].Position)
+//                      .anchor((float) 0.5, (float) 0.5)
+//                      .flat(true).rotation(Float.parseFloat(AC_DATA.AircraftData[AcIndex].Heading))
+//                      .title(AC_DATA.AircraftData[AcIndex].AC_Name)
+//                      .draggable(true)
+//                      .icon(BitmapDescriptorFactory.fromBitmap(AC_DATA.AircraftData[AcIndex].AC_Logo))
+//      );
+//
+//      AC_DATA.AircraftData[AcIndex].AC_Carrot_Marker = mMap.addMarker(new MarkerOptions()
+//                      .position(AC_DATA.AircraftData[AcIndex].AC_Carrot_Position)
+//                      .anchor((float) 0.5, (float) 0.5)
+//                      .draggable(true)
+//                      .icon(BitmapDescriptorFactory.fromBitmap(AC_DATA.AircraftData[AcIndex].AC_Carrot_Logo))
+//      );
+//    }
+//  }
 
   //REfresh markers
-  private void refresh_markers() {
-
-    //Method below is better..
-    //
-    int i;
-
-    //if selected ac position changed and user wants to trace ac then
-    if (AcLocked && AC_DATA.AircraftData[AC_DATA.SelAcInd].AC_Position_Changed) {
-      mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AC_DATA.AircraftData[AC_DATA.SelAcInd].Position, MapZoomLevel), 400, null);
-      CameraPosition cameraPosition = CameraPosition.builder()
-              .target(AC_DATA.AircraftData[AC_DATA.SelAcInd].Position)
-              .zoom(MapZoomLevel)
-              .bearing(Float.parseFloat(AC_DATA.AircraftData[AC_DATA.SelAcInd].Heading))
-              .build();
-
-      mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-    }
-
-
-    for (i = 0; i <= AC_DATA.IndexEnd; i++) {
-
-      //Is AC ready to show on ui?
-      //if (!AC_DATA.AircraftData[i].AC_Enabled)  return;
-
-      if (null == AC_DATA.AircraftData[i].AC_Marker) {
-        add_markers_2_map(i);
-      }
-
-      //Check if ac i visible and its position is changed
-      if (AC_DATA.AircraftData[i].AC_Enabled && AC_DATA.AircraftData[i].isVisible && AC_DATA.AircraftData[i].AC_Position_Changed) {
-        AC_DATA.AircraftData[i].AC_Marker.setPosition(AC_DATA.AircraftData[i].Position);
-        AC_DATA.AircraftData[i].AC_Marker.setRotation(Float.parseFloat(AC_DATA.AircraftData[i].Heading));
-        AC_DATA.AircraftData[i].AC_Carrot_Marker.setPosition(AC_DATA.AircraftData[i].AC_Carrot_Position);
-        refresh_map_lines(i);
-        AC_DATA.AircraftData[i].AC_Position_Changed = false;
-      }
-
-    }
-
-
-    //Check markers
-
-    if (AC_DATA.NewMarkerAdded)   //Did we add any markers?
-    {
-      int AcInd;
-      for (AcInd = 0; AcInd <= AC_DATA.IndexEnd; AcInd++) {     //Search thru all aircrafts and check if they have marker added flag
-
-        if (AC_DATA.AircraftData[AcInd].NewMarkerAdded) {   //Does this aircraft has an added marker data?
-          int MarkerInd = 1;
-          //Log.d("PPRZ_info", "trying to show ac markers of "+AcInd);
-          //Search aircraft markers which has name but doesn't have marker
-          for (MarkerInd = 1; (MarkerInd < AC_DATA.AircraftData[AcInd].NumbOfWps - 1); MarkerInd++) {
-
-            if ((AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpPosition == null) || (AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker != null))
-              continue; //we dont have data for this wp yet
-
-            if (DEBUG) Log.d("PPRZ_info", "New marker added for Ac id: " + AcInd + " wpind:" + MarkerInd);
-            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker = mMap.addMarker(new MarkerOptions()
-                    .position(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpPosition)
-                    .title(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpName)
-                    .draggable(true)
-                    .anchor(0.5f,0.378f)
-                    .icon(BitmapDescriptorFactory.fromBitmap(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarkerIcon)));
-            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker.setVisible(AcMarkerVisible(AcInd));
-
-            if ("_".equals(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpName.substring(0, 1))) {
-              AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker.setVisible(false);
-            }
-
-            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].MarkerModified = false;
-          }
-
-
-          AC_DATA.AircraftData[AcInd].NewMarkerAdded = false;
-        }
-      }
-
-      AC_DATA.NewMarkerAdded = false;
-    }
-
-
-    //Handle marker modified msg
-
-    if (AC_DATA.MarkerModified)   //
-    {
-
-      //Log.d("PPRZ_info", "Marker modified for whom?");
-      int AcInd;
-      for (AcInd = 0; AcInd <= AC_DATA.IndexEnd; AcInd++) {     //Search thru all aircrafts and check if they have marker added flag
-
-        if (AC_DATA.AircraftData[AcInd].MarkerModified) {   //Does this aircraft has an added marker data?
-          if (DEBUG) Log.d("PPRZ_info", "Marker modified for AC= " + AcInd);
-          int MarkerInd = 1;
-          //if (DEBUG) Log.d("PPRZ_info", "trying to show ac markers of "+AcInd);
-          //Search aircraft markers which has name but doesn't have marker
-          for (MarkerInd = 1; (MarkerInd < AC_DATA.AircraftData[AcInd].NumbOfWps - 1); MarkerInd++) {
-            //Log.d("PPRZ_info", "Searching Marker for AC= " + AcInd + " wpind:" + MarkerInd);
-            if ((AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd] == null) || !(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].MarkerModified) || (null == AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker))
-              continue; //we dont have data for this wp yet
-
-            //Set new position for marker
-            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker.setPosition(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpPosition);
-
-            //Clean MarkerModified flag
-            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].MarkerModified = false;
-            if (DEBUG) Log.d("PPRZ_info", "Marker modified for acid: " + AcInd + " wpind:" + MarkerInd);
-
-          }
-          //Clean AC MarkerModified flag
-          AC_DATA.AircraftData[AcInd].MarkerModified = false;
-
-        }
-      }
-      //Clean Class MarkerModified flag
-      AC_DATA.MarkerModified = false;
-
-    }
-
-    AC_DATA.ViewChanged = false;
-  }
+//  private void refresh_markers() {
+//
+//    //Method below is better..
+//    //
+//    int i;
+//
+//    //if selected ac position changed and user wants to trace ac then
+//    if (AcLocked && AC_DATA.AircraftData[AC_DATA.SelAcInd].AC_Position_Changed) {
+//      mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AC_DATA.AircraftData[AC_DATA.SelAcInd].Position, MapZoomLevel), 400, null);
+//      CameraPosition cameraPosition = CameraPosition.builder()
+//              .target(AC_DATA.AircraftData[AC_DATA.SelAcInd].Position)
+//              .zoom(MapZoomLevel)
+//              .bearing(Float.parseFloat(AC_DATA.AircraftData[AC_DATA.SelAcInd].Heading))
+//              .build();
+//
+//      mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//    }
+//
+//
+//    for (i = 0; i <= AC_DATA.IndexEnd; i++) {
+//
+//      //Is AC ready to show on ui?
+//      //if (!AC_DATA.AircraftData[i].AC_Enabled)  return;
+//
+//      if (null == AC_DATA.AircraftData[i].AC_Marker) {
+//        add_markers_2_map(i);
+//      }
+//
+//      //Check if ac i visible and its position is changed
+//      if (AC_DATA.AircraftData[i].AC_Enabled && AC_DATA.AircraftData[i].isVisible && AC_DATA.AircraftData[i].AC_Position_Changed) {
+//        AC_DATA.AircraftData[i].AC_Marker.setPosition(AC_DATA.AircraftData[i].Position);
+//        AC_DATA.AircraftData[i].AC_Marker.setRotation(Float.parseFloat(AC_DATA.AircraftData[i].Heading));
+//        AC_DATA.AircraftData[i].AC_Carrot_Marker.setPosition(AC_DATA.AircraftData[i].AC_Carrot_Position);
+//        refresh_map_lines(i);
+//        AC_DATA.AircraftData[i].AC_Position_Changed = false;
+//      }
+//
+//    }
+//
+//
+//    //Check markers
+//
+//    if (AC_DATA.NewMarkerAdded)   //Did we add any markers?
+//    {
+//      int AcInd;
+//      for (AcInd = 0; AcInd <= AC_DATA.IndexEnd; AcInd++) {     //Search thru all aircrafts and check if they have marker added flag
+//
+//        if (AC_DATA.AircraftData[AcInd].NewMarkerAdded) {   //Does this aircraft has an added marker data?
+//          int MarkerInd = 1;
+//          //Log.d("PPRZ_info", "trying to show ac markers of "+AcInd);
+//          //Search aircraft markers which has name but doesn't have marker
+//          for (MarkerInd = 1; (MarkerInd < AC_DATA.AircraftData[AcInd].NumbOfWps - 1); MarkerInd++) {
+//
+//            if ((AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpPosition == null) || (AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker != null))
+//              continue; //we dont have data for this wp yet
+//
+//            if (DEBUG) Log.d("PPRZ_info", "New marker added for Ac id: " + AcInd + " wpind:" + MarkerInd);
+//            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker = mMap.addMarker(new MarkerOptions()
+//                    .position(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpPosition)
+//                    .title(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpName)
+//                    .draggable(true)
+//                    .anchor(0.5f,0.378f)
+//                    .icon(BitmapDescriptorFactory.fromBitmap(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarkerIcon)));
+//            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker.setVisible(AcMarkerVisible(AcInd));
+//
+//            if ("_".equals(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpName.substring(0, 1))) {
+//              AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker.setVisible(false);
+//            }
+//
+//            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].MarkerModified = false;
+//          }
+//
+//
+//          AC_DATA.AircraftData[AcInd].NewMarkerAdded = false;
+//        }
+//      }
+//
+//      AC_DATA.NewMarkerAdded = false;
+//    }
+//
+//
+//    //Handle marker modified msg
+//
+//    if (AC_DATA.MarkerModified)   //
+//    {
+//
+//      //Log.d("PPRZ_info", "Marker modified for whom?");
+//      int AcInd;
+//      for (AcInd = 0; AcInd <= AC_DATA.IndexEnd; AcInd++) {     //Search thru all aircrafts and check if they have marker added flag
+//
+//        if (AC_DATA.AircraftData[AcInd].MarkerModified) {   //Does this aircraft has an added marker data?
+//          if (DEBUG) Log.d("PPRZ_info", "Marker modified for AC= " + AcInd);
+//          int MarkerInd = 1;
+//          //if (DEBUG) Log.d("PPRZ_info", "trying to show ac markers of "+AcInd);
+//          //Search aircraft markers which has name but doesn't have marker
+//          for (MarkerInd = 1; (MarkerInd < AC_DATA.AircraftData[AcInd].NumbOfWps - 1); MarkerInd++) {
+//            //Log.d("PPRZ_info", "Searching Marker for AC= " + AcInd + " wpind:" + MarkerInd);
+//            if ((AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd] == null) || !(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].MarkerModified) || (null == AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker))
+//              continue; //we dont have data for this wp yet
+//
+//            //Set new position for marker
+//            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpMarker.setPosition(AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].WpPosition);
+//
+//            //Clean MarkerModified flag
+//            AC_DATA.AircraftData[AcInd].AC_Markers[MarkerInd].MarkerModified = false;
+//            if (DEBUG) Log.d("PPRZ_info", "Marker modified for acid: " + AcInd + " wpind:" + MarkerInd);
+//
+//          }
+//          //Clean AC MarkerModified flag
+//          AC_DATA.AircraftData[AcInd].MarkerModified = false;
+//
+//        }
+//      }
+//      //Clean Class MarkerModified flag
+//      AC_DATA.MarkerModified = false;
+//
+//    }
+//
+//    AC_DATA.ViewChanged = false;
+//  }
 
   /**
    * @param WpID
@@ -1064,27 +1056,27 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
 
   }
 
-  private boolean checkReady() {
-    if (mMap == null) {
-      Toast.makeText(this, R.string.map_not_ready, Toast.LENGTH_SHORT).show();
-      return false;
-    }
-    return true;
-  }
+//  private boolean checkReady() {
+//    if (mMap == null) {
+//      Toast.makeText(this, R.string.map_not_ready, Toast.LENGTH_SHORT).show();
+//      return false;
+//    }
+//    return true;
+//  }
 
-  public void onResetMap(View view) {
-    if (!checkReady()) {
-      return;
-    }
-    // Clear the map because we don't want duplicates of the markers.
-    mMap.clear();
-    //addMarkersToMap();
-  }
+//  public void onResetMap(View view) {
+//    if (!checkReady()) {
+//      return;
+//    }
+//    // Clear the map because we don't want duplicates of the markers.
+//    mMap.clear();
+//    //addMarkersToMap();
+//  }
 
   //Function to center aircraft on map (can be integrated with Center_AC funct. )
-  private void center_aircraft() {
-    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AC_DATA.AircraftData[AC_DATA.SelAcInd].Position, MapZoomLevel), 1500, null);
-  }
+//  private void center_aircraft() {
+//    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(AC_DATA.AircraftData[AC_DATA.SelAcInd].Position, MapZoomLevel), 1500, null);
+//  }
 
   @Override
   public void setTitle(CharSequence title) {
@@ -1710,7 +1702,7 @@ public class MainActivity extends Activity implements SharedPreferences.OnShared
           }
 
         //For a smooth gui we need refresh only changed gui controls
-        refresh_markers();
+        //refresh_markers();
 
         //Check  engine Status
         if (AC_DATA.AircraftData[AC_DATA.SelAcInd].EngineStatusChanged) {

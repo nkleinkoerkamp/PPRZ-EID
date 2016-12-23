@@ -20,7 +20,7 @@
  *
  */
 
-package com.PPRZonDroid;
+package com.PPRZ_EID;
 
 import android.graphics.Bitmap;
 import android.util.Log;

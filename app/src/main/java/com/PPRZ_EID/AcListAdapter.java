@@ -20,7 +20,7 @@
  *
  */
 
-package com.PPRZonDroid;
+package com.PPRZ_EID;
 
 /**
  * Aircraft list adapter

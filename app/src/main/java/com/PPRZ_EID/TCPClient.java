@@ -24,9 +24,8 @@
  * TCP comm handling
  */
 
-package com.PPRZonDroid;
+package com.PPRZ_EID;
 
-import android.util.Log;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;

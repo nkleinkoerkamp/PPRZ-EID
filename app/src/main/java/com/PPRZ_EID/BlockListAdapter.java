@@ -20,7 +20,7 @@
  *
  */
 
-package com.PPRZonDroid;
+package com.PPRZ_EID;
 
 import android.content.Context;
 import android.graphics.Color;

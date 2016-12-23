@@ -1,4 +1,4 @@
-package com.PPRZonDroid;
+package com.PPRZ_EID;
 
 /**
  * Created by savas on 2/1/14.

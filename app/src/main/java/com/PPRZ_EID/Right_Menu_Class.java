@@ -20,46 +20,24 @@
  *
  */
 
-package com.PPRZonDroid;
+package com.PPRZ_EID;
 
-import android.graphics.Bitmap;
+import android.app.Fragment;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class Model {
+/**
+ * Created by savas on 12/3/13.
+ * se
+ */
+public class Right_Menu_Class extends Fragment {
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    // Inflate the layout for this fragment
 
-  private Bitmap icon;
-  private String AcName;
-  private String AcBattery;
-
-  public Model(Bitmap icon, String AcName, String AcBattery) {
-    super();
-    this.icon = icon;
-    this.AcName = AcName;
-    this.AcBattery = AcBattery;
+    return inflater.inflate(R.layout.right_menu, container, false);
   }
-
-  public Bitmap getIcon() {
-    return icon;
-  }
-
-  public void setIcon(Bitmap icon) {
-    this.icon = icon;
-  }
-
-  public String getTitle() {
-    return AcName;
-  }
-
-  public void setTitle(String AcName) {
-    this.AcName = AcName;
-  }
-
-  public String getCounter() {
-    return AcBattery;
-  }
-
-  public void setCounter(String AcBattery) {
-    this.AcBattery = AcBattery;
-  }
-
-
 }
